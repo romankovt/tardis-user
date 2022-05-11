@@ -17,9 +17,6 @@ AllCops:
     - db/schema.rb
     - vendor/**/*
     - bin/**/*
-    - release_data_migrate.rb
-    - deploy/**/*
-    - db/migrate/*_init_schema.rb
 
 # METRICS RULES
 Metrics/ModuleLength:
