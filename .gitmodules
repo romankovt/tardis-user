@@ -1,0 +1,3 @@
+[submodule "cerberus-api-gateway"]
+	path = cerberus-api-gateway
+	url = /Users/rkov/rails_projects/cerberus-api-gateway
