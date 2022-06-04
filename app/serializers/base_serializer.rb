@@ -1,0 +1,3 @@
+class BaseSerializer; end
+
+

@@ -1,0 +1,4 @@
+.dockerdev/
+.psqlrc/
+.bundle/
+tmp/*

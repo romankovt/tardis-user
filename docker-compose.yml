@@ -1,0 +1,105 @@
+version: "3.9"
+services:
+  db-tardis-user:
+    image: postgres:14.3
+    restart: always
+    ports:
+      - 5433:5433
+    networks:
+      - webnet
+    environment:
+      - POSTGRES_USER=tardis-user
+      - POSTGRES_DBNAME=tardis-user
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    command: -p 5433
+  redis:
+    restart: always
+    image: redis
+    ports:
+      - "6379"
+    networks:
+      - webnet
+  tardius-user:
+    image: tardis-user:1.0.0
+    restart: always
+    build: .
+    environment:
+      - RAILS_ENV=development
+      - RAILS_LOG_TO_STDOUT=true
+    ports:
+      - "3000:3000"
+    networks:
+      - webnet
+    volumes:
+      - .:/tardis-user
+      - ./config/database.docker.yml:/tardis-user/config/database.yml
+    depends_on:
+      - redis
+      - db-tardis-user
+    command: bundle exec puma -C config/puma.rb
+  cerberus-api-gateway:
+    image: cerberus-api-gateway:1.0.0
+    restart: always
+    depends_on:
+      - tardius-user
+    environment:
+      - APP_ENV=development
+      - USER_API_HOST=tardius-user
+    ports:
+      - "4567:4567"
+    networks:
+      - webnet
+    command: bundle exec puma -C config/puma.rb
+networks:
+  webnet:
+
+
+# version: "3"
+# services:
+#   web:
+#     restart: always
+#     image: raketa/api
+#     depends_on:
+#       - db
+#       - redis
+#       - elasticsearch
+#     command: "/home/centos/raketa-api/deploy/dev_env/startup_scripts/start_node.sh"
+#     ports:
+#       - "80:3000"
+#     networks:
+#       - webnet
+#   matcher:
+#     restart: always
+#     image: raketa/api
+#     depends_on:
+#       - db
+#       - redis
+#       - elasticsearch
+#       - web
+#     command: "/home/centos/raketa-api/deploy/dev_env/startup_scripts/matcher.sh"
+#     networks:
+#       - webnet
+#   sidekiq_primary:
+#     restart: always
+#     image: raketa/api
+#     depends_on:
+#       - db
+#       - redis
+#       - elasticsearch
+#       - web
+#     command: "/home/centos/raketa-api/deploy/dev_env/startup_scripts/sidekiq_primary.sh"
+#     networks:
+#       - webnet
+#   sidekiq_secondary:
+#     restart: always
+#     image: raketa/api
+#     depends_on:
+#       - db
+#       - redis
+#       - elasticsearch
+#       - web
+#     command: "/home/centos/raketa-api/deploy/dev_env/startup_scripts/sidekiq_secondary.sh"
+#     networks:
+#       - webnet
+# networks:
+#   webnet:

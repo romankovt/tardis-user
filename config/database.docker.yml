@@ -9,7 +9,7 @@ default: &default
 
 development:
   <<: *default
-  host: localhost
+  host: db-tardis-user
   port: 5433
   user: tardis-user
   database: tardis-user

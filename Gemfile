@@ -8,11 +8,11 @@ ruby "3.1.2"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.3"
 
-# Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
+# Use postgres as database
+gem "pg", "~> 1.3.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma", "~> 5.6.4"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
@@ -44,6 +44,18 @@ gem "rubocop-performance", "~> 1.13.3", require: false
 gem "rubocop-rails", "~> 2.14.2", require: false
 gem "rubocop-faker", "~> 1.1.0", require: false
 
+# json serializer accoording to json api standard, see more: https://jsonapi.org/
+gem 'jsonapi-serializer', "~> 2.2.0"
+
+# optimize json serialization
+gem "oj", "~> 3.13.11"
+
+# memoize objects
+gem "memoist", "~> 0.16.2"
+
+# paginating objects
+gem "kaminari", "~> 1.2.2"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
@@ -53,4 +65,7 @@ end
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem "pry-rails", "~> 0.3.9"
+  gem "pry-theme", "~> 1.3.1"
+  gem "awesome_print", "~> 1.9.2"
 end
