@@ -9,8 +9,8 @@ default: &default
 
 development:
   <<: *default
-  host: localhost
-  port: 5433
+  host: tardis-postgres
+  port: 5432
   user: tardis-user
   database: tardis-user
 
