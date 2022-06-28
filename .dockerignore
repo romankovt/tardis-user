@@ -1,4 +1,4 @@
 .dockerdev/
 .psqlrc/
 .bundle/
-tmp/*
+tmp/pids/*
