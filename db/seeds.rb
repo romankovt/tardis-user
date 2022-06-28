@@ -6,3 +6,10 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+
+puts "Generating users.."
+
+30.times do
+  User.create!(phone: "380#{rand(100000000..999999999)}")
+end
