@@ -3,15 +3,20 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("ACTIVE_RECORD_CONNECTION_POOL") { 20 } %>
   connect_timeout: 5
+  host: tardis-postgres
+  user: tardis-user
   variables:
     statement_timeout: 15s
     lock_timeout: 10s
 
 development:
   <<: *default
+<<<<<<< Updated upstream
   host: tardis-postgres
   port: 5432
   user: tardis-user
+=======
+>>>>>>> Stashed changes
   database: tardis-user
 
 production:
@@ -20,9 +25,7 @@ production:
 
 test:
   <<: *default
-  database: raketa_test
+  host: tardis-postgres
+  user: tardis-user
+  database: tardis-user-test
   pool: 1
-
-production:
-  <<: *default
-  database: tardis-user

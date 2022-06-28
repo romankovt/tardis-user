@@ -44,10 +44,13 @@ gem "rubocop-performance", "~> 1.13.3", require: false
 gem "rubocop-rails", "~> 2.14.2", require: false
 gem "rubocop-faker", "~> 1.1.0", require: false
 
-# json serializer accoording to json api standard, see more: https://jsonapi.org/
-gem 'jsonapi-serializer', "~> 2.2.0"
+# elastic apm
+gem "elastic-apm", "~> 4.5.1"
 
-# optimize json serialization
+# json serializer accoording to json api standard, see more: https://jsonapi.org/
+gem "jsonapi-serializer", "~> 2.2.0"
+
+# OPTIMIZE: json serialization
 gem "oj", "~> 3.13.11"
 
 # memoize objects

@@ -1,6 +1,5 @@
-ARG RUBY_VERSION=3.1.2
+ARG RUBY_VERSION
 ARG DISTRO_NAME=bullseye
-ARG RAILS_ENV=development
 
 FROM ruby:$RUBY_VERSION-slim-$DISTRO_NAME
 
@@ -49,23 +48,20 @@ ENV LANG=C.UTF-8 \
   BUNDLE_RETRY=3
 
 # Store Bundler settings in the project's root
-# ENV BUNDLE_APP_CONFIG=.bundle
+ENV BUNDLE_APP_CONFIG=.bundle
+
+# Upgrade RubyGems and install the latest Bundler version and install gems
+RUN gem update --system && gem install bundler
 
 # Uncomment this line if you want to run binstubs without prefixing with `bin/` or `bundle exec`
 ENV PATH /app/bin:$PATH
 
 # Create a directory for the app code
 RUN mkdir -p /app
-WORKDIR /tardis-user
-
-# copy code base
-COPY . .
-
-# Upgrade RubyGems and install the latest Bundler version and install gems
-RUN gem update --system && gem install bundler && bundle install
+WORKDIR /app
 
 # Document that we're going to expose port 3000
 EXPOSE 3000
 
-# run puma
-CMD ["sh", "-c", "bundle exec puma -C config/puma.rb -e $RAILS_ENV"]
+# Use Bash as the default command
+CMD ["/usr/bin/bash"]

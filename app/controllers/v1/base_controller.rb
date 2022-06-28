@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class V1::BaseController < ApplicationController
   extend Memoist
 
@@ -26,4 +28,3 @@ class V1::BaseController < ApplicationController
     render json: { message: "record is read onlt" }, status: :unprocessable_entity
   end
 end
-

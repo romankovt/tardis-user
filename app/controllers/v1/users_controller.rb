@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 class V1::UsersController < V1::BaseController
   before_action :find_users, only: :index
-  before_action :find_user, only: [:update, :show, :destroy]
+  before_action :find_user, only: %i[update show destroy]
 
   def index
+    ElasticAPM.report_message('This should probably never happen?!')
     render json: V1::UserSerializer.new(@users)
   end
 
@@ -12,7 +15,7 @@ class V1::UsersController < V1::BaseController
   end
 
   def create
-    user = User.create!(phone: "380#{rand(100000000..999999999)}")
+    user = User.create!(phone: "380#{rand(100_000_000..999_999_999)}")
     render json: V1::UserSerializer.new(user)
   end
 
@@ -29,7 +32,15 @@ class V1::UsersController < V1::BaseController
   private
 
   def find_users
-    @users = User.all.order(:id).page(params[:page]).per(params[:per_page]).without_count
+    @users = if params[:phones].present?
+      User.where(phone: params[:phones])
+    elsif params[:ids].present?
+      User.where(id: params[:ids])
+    else
+      User.all
+    end
+
+    @users = @users.order(:id).page(params[:page]).per(params[:per_page]).without_count
   end
 
   def user_params

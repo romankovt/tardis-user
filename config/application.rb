@@ -14,10 +14,8 @@ require_relative "boot"
   "action_mailer/railtie",
   "active_job/railtie",
 ].each do |railtie|
-  begin
-    require railtie
-  rescue LoadError
-  end
+  require railtie
+rescue LoadError
 end
 
 # Require the gems listed in Gemfile, including any gems
