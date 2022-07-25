@@ -5,7 +5,6 @@ class V1::UsersController < V1::BaseController
   before_action :find_user, only: %i[update show destroy]
 
   def index
-    ElasticAPM.report_message('This should probably never happen?!')
     render json: V1::UserSerializer.new(@users)
   end
 

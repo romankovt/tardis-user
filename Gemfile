@@ -45,7 +45,7 @@ gem "rubocop-rails", "~> 2.14.2", require: false
 gem "rubocop-faker", "~> 1.1.0", require: false
 
 # elastic apm
-gem "elastic-apm", "~> 4.5.1"
+# gem "elastic-apm", "~> 4.5.1"
 
 # json serializer accoording to json api standard, see more: https://jsonapi.org/
 gem "jsonapi-serializer", "~> 2.2.0"
